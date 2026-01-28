@@ -33,6 +33,7 @@ variable "key_vault_settings" {
     sku                        = optional(string, "standard")
     purge_protection_enabled   = optional(bool, false)
     soft_delete_retention_days = optional(number, 7)
+    tags                       = optional(map(string))
   })
 }
 

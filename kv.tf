@@ -22,6 +22,8 @@ resource "azurerm_key_vault" "vault" {
   rbac_authorization_enabled = true
   purge_protection_enabled   = var.key_vault_settings.purge_protection_enabled
   soft_delete_retention_days = var.key_vault_settings.soft_delete_retention_days
+
+  tags = var.key_vault_settings.tags
 }
 
 resource "azurerm_role_assignment" "webapp_kv_reader" {
