@@ -17,7 +17,7 @@ resource "azurerm_key_vault" "vault" {
   location            = data.azurerm_resource_group.existing_rg.location
   resource_group_name = data.azurerm_resource_group.existing_rg.name
   tenant_id           = data.azurerm_client_config.current.tenant_id
-  sku_name            = var.key_vault.sku
+  sku_name            = var.key_vault_settings.sku
 
   rbac_authorization_enabled = true
   purge_protection_enabled   = var.key_vault_settings.purge_protection_enabled
