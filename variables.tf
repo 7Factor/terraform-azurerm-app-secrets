@@ -34,7 +34,6 @@ variable "key_vault_settings" {
     purge_protection_enabled   = optional(bool, false)
     soft_delete_retention_days = optional(number, 7)
   })
-  default = {}
 }
 
 variable "managed_identity_principal_id" {
