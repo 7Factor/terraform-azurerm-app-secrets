@@ -1,6 +1,6 @@
 locals {
-  create_kv  = length(var.app_secrets) > 0
-  
+  create_kv = length(var.app_secrets) > 0
+
   key_vault = try(data.azurerm_key_vault.existing_vault[0], azurerm_key_vault.vault[0], null)
 
   needs_kv_role = length(local.app_secret_bindings) > 0
@@ -41,7 +41,7 @@ data "azurerm_key_vault" "existing_vault" {
   resource_group_name = var.key_vault_settings.rg_name
 }
 
-resource "azurerm_key_vault_secret" "linked" {
+resource "azurerm_key_vault_secret" "app_secrets" {
   for_each = local.app_secrets_by_name
 
   name         = each.key
