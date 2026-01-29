@@ -23,7 +23,7 @@ Basic example (in need of a Key Vault instance):
 ```hcl-terraform
 module "app_secrets" {
   source  = "7Factor/app-secrets/azurerm"
-  version = ">= 0"
+  version = ">= 1"
 
   app_secrets = [
     {
@@ -57,7 +57,7 @@ Basic example (bringing your own Key Vault instance):
 ```hcl-terraform
 module "app_secrets" {
   source  = "7Factor/app-secrets/azurerm"
-  version = ">= 0"
+  version = ">= 1"
 
   app_secrets = [
     {
