@@ -120,3 +120,4 @@ After apply:
 
 - _key_vault_: The Key Vault instance used (regardless of whether it was created by the module or reused).
 - _app_settings_bindings_: An object mapping the provided app_settings keys to their corresponding Key Vault reference URIs.
+- _key_vault_references_: An object mapping the provided secret names to their corresponding Key Vault reference URIs (even if not mapped to an app_setting).
