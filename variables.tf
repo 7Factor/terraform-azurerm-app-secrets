@@ -4,6 +4,7 @@ variable "app_secrets" {
     name             = string
     app_setting_name = optional(string)
     initial_value    = optional(string)
+    tags             = optional(map(string))
   }))
   default   = []
   sensitive = true
