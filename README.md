@@ -112,6 +112,7 @@ After apply:
   - **name** (string, required): Key Vault secret name.
   - _app_setting_ (string, optional): App setting key to bind via Key Vault reference. If omitted, the secret is created but not bound.
   - _initial_value_ (string, optional): Seed value for first deploy. Subsequent changes are ignored. Populate/rotate via Azure Portal or CI.
+  - _tags_ (object, optional): Desired tags to add to the secret
 
 - _managed_identity_principal_id_ (string, default: null)
   - Principal ID of the managed identity to assign Key Vault permissions to. If you already handle this permission elsewhere, you may omit this value.

@@ -47,6 +47,7 @@ resource "azurerm_key_vault_secret" "app_secrets" {
   name         = each.key
   value        = each.value.initial_value != null ? each.value.initial_value : ""
   key_vault_id = local.key_vault.id
+  tags         = each.value.tags
 
   lifecycle {
     ignore_changes = [value]
