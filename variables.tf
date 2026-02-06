@@ -23,7 +23,7 @@ locals {
   }
   app_secret_bindings = {
     for s in nonsensitive(var.app_secrets) : s.app_setting_name => s.name
-    if s.app_setting_name != null && length(s.app_setting_name) > 0
+    if length(s.app_setting_name != null ? s.app_setting_name : "") > 0
   }
 }
 
