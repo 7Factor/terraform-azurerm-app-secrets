@@ -4,6 +4,8 @@ locals {
   key_vault = try(data.azurerm_key_vault.existing_vault[0], azurerm_key_vault.vault[0], null)
 
   needs_kv_role = length(local.app_secret_bindings) > 0
+
+  is_external_kv = var.key_vault_settings.external || var.key_vault_settings.externally_created
 }
 
 data "azurerm_resource_group" "existing_rg" {
@@ -11,7 +13,7 @@ data "azurerm_resource_group" "existing_rg" {
 }
 
 resource "azurerm_key_vault" "vault" {
-  count = local.create_kv && !var.key_vault_settings.externally_created ? 1 : 0
+  count = local.create_kv && !local.is_external_kv ? 1 : 0
 
   name                = var.key_vault_settings.name
   location            = data.azurerm_resource_group.existing_rg.location
@@ -35,14 +37,14 @@ resource "azurerm_role_assignment" "webapp_kv_reader" {
 }
 
 data "azurerm_key_vault" "existing_vault" {
-  count = var.key_vault_settings.externally_created ? 1 : 0
+  count = local.is_external_kv ? 1 : 0
 
   name                = var.key_vault_settings.name
   resource_group_name = var.key_vault_settings.rg_name
 }
 
 resource "azurerm_key_vault_secret" "app_secrets" {
-  for_each = local.app_secrets_by_name
+  for_each = local.managed_app_secrets
 
   name         = each.key
   value        = each.value.initial_value != null ? each.value.initial_value : ""

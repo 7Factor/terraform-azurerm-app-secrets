@@ -5,6 +5,7 @@ variable "app_secrets" {
     app_setting_name = optional(string)
     initial_value    = optional(string)
     tags             = optional(map(string))
+    external         = optional(bool, false)
   }))
   default   = []
   sensitive = true
@@ -16,8 +17,9 @@ variable "app_secrets" {
 }
 
 locals {
-  app_secrets_by_name = {
+  managed_app_secrets = {
     for s in nonsensitive(var.app_secrets) : s.name => sensitive(s)
+    if s.external == false || s.external == null
   }
   app_secret_bindings = {
     for s in nonsensitive(var.app_secrets) : s.app_setting_name => s.name
@@ -31,6 +33,7 @@ variable "key_vault_settings" {
     name                       = string
     rg_name                    = string
     externally_created         = optional(bool, false)
+    external                   = optional(bool, false)
     sku                        = optional(string, "standard")
     purge_protection_enabled   = optional(bool, false)
     soft_delete_retention_days = optional(number, 7)

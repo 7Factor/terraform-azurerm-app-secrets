@@ -101,7 +101,8 @@ After apply:
 - **key_vault_settings** (object, required)
   - **name** (string, required)
   - **rg_name** (string, required)
-  - _externally_created_ (bool, default: null)
+  - _externally_created_ (bool, default: false) - DEPRECATED, use `external` instead
+  - _external_ (bool, default: false)
   - _sku_ (string, default: null)
   - _purge_protection_enabled_ (bool, default: false)
   - _soft_delete_retention_days_ (number, default: 7)
@@ -111,6 +112,7 @@ After apply:
 - _app_secrets_ (list(object), default: [])
   - **name** (string, required): Key Vault secret name.
   - _app_setting_ (string, optional): App setting key to bind via Key Vault reference. If omitted, the secret is created but not bound.
+  - _external_ (bool, default: false): Whether the secret has already been created elsewhere. If `true`, `initial_value` and `tags` are ignored for this secret
   - _initial_value_ (string, optional): Seed value for first deploy. Subsequent changes are ignored. Populate/rotate via Azure Portal or CI.
   - _tags_ (object, optional): Desired tags to add to the secret
 
